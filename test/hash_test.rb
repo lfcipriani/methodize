@@ -32,7 +32,7 @@ class MethodizeTest < Test::Unit::TestCase
       :id    => 123456789
     }
 
-    @hash.methodize
+    @hash.methodize!
   end
 
   def test_methodize_should_still_work_as_expected
@@ -57,5 +57,8 @@ class MethodizeTest < Test::Unit::TestCase
     assert_equal @hash.id  , 123456789
   end
 
-end
+  def test_double_methodize_call_does_not_affect_anything
+    assert_equal @hash.methodize!.article.last.title, "Article 3"
+  end
 
+end

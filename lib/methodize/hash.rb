@@ -1,6 +1,6 @@
 require 'methodize'
 class Hash
-  def methodize
+  def methodize!
     self.extend(Methodize)
   end
 end
