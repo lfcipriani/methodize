@@ -55,6 +55,4 @@ private
     end
     value
   end
-
 end
-

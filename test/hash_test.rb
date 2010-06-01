@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'lib/hash_ext'
+require 'methodize/hash'
 
 require 'rubygems'
 require 'ruby-debug'

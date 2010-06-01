@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'lib/methodize'
+require 'methodize'
 
 require 'rubygems'
 require 'ruby-debug'
