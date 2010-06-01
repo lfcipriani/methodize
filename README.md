@@ -21,6 +21,10 @@ You can use:
 
     hash.article.last.info.category.first
 
+To install:
+
+    gem install methodize
+
 ### Interested? Let's see more examples ###
 
 Let's suppose that we have the following hash object:
