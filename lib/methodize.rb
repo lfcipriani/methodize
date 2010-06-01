@@ -1,6 +1,10 @@
 module Methodize
   def self.extended(base)
-    [:type, :id].each { |m| base.__free_method__(m) }      
+    # if some of the Hash keys and public methods names conflict
+    # we free the existant method to enable the user to call it
+    base.keys.each do |k|
+      base.__free_method__(k.to_sym) if base.public_methods.include?(k.to_s)
+    end
   end
   
   def [](key)
@@ -8,6 +12,7 @@ module Methodize
   end
 
   def []=(key, value)
+    __free_method__(key) if !self.keys.include?(key) && self.public_methods.include?(key.to_s)
     super(key,value)
   end
 
@@ -18,7 +23,8 @@ module Methodize
       self.key?(method_name) ? key = method_name : key = method_name.to_sym
       self[key] = args[0]
     else
-      self[method_name] || self[method_name.to_sym]
+      self.key?(method_name) ? key = method_name : key = method_name.to_sym
+      self[key]
     end
   end
 
