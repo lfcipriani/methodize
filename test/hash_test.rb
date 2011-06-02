@@ -4,7 +4,7 @@ require 'methodize/hash'
 require 'rubygems'
 require 'ruby-debug'
 
-class MethodizeTest < Test::Unit::TestCase
+class MethodizeHashTest < Test::Unit::TestCase
 
   def setup
     @hash = {
