@@ -36,29 +36,29 @@ class MethodizeTest < Test::Unit::TestCase
   end
 
   def test_methodize_should_still_work_as_expected
-    assert_equal @hash[:article].last[:title], "Article 3"
-    assert_equal @hash[:article][1]["author"], "Foo Bar"
-    assert_equal @hash["type"]               , :text
-    assert_equal @hash[:size]                , 3
+    assert_equal "Article 3", @hash[:article].last[:title]
+    assert_equal "Foo Bar"  , @hash[:article][1]["author"]
+    assert_equal :text      , @hash["type"]
+    assert_equal 3          , @hash[:size]
     assert_nil   @hash[:wrong_key]
     
     assert       @hash.keys.include?(:size)
-    assert_equal @hash.article.size, 3
+    assert_equal 3, @hash.article.size
   end
 
   def test_methodize_should_support_read_of_values_as_methods
-    assert_equal @hash.article.last.title              , "Article 3"
-    assert_equal @hash.article[1].author               , "Foo Bar"
-    assert_equal @hash.article.last.info.category.first, :sports
+    assert_equal "Article 3", @hash.article.last.title
+    assert_equal "Foo Bar"  , @hash.article[1].author
+    assert_equal :sports    , @hash.article.last.info.category.first
     assert_nil   @hash.wrong_key
     
-    assert_equal @hash.size, 3
-    assert_equal @hash.type, :text
-    assert_equal @hash.id  , 123456789
+    assert_equal 3        , @hash.size
+    assert_equal :text    , @hash.type
+    assert_equal 123456789, @hash.id  
   end
 
   def test_double_methodize_call_does_not_affect_anything
-    assert_equal @hash.methodize!.article.last.title, "Article 3"
+    assert_equal "Article 3", @hash.methodize!.article.last.title
   end
 
 end
