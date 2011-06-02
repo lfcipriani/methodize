@@ -27,7 +27,7 @@ class MethodizeTest < Test::Unit::TestCase
           }
         }
       ],
-      "type" => :text,
+      "class" => :text,
       :size  => 3,
       :id    => 123456789
     }
@@ -38,7 +38,7 @@ class MethodizeTest < Test::Unit::TestCase
   def test_hash_should_still_work_as_expected
     assert_equal "Article 3", @hash[:article].last[:title]
     assert_equal "Foo Bar"  , @hash[:article][1]["author"]
-    assert_equal :text      , @hash["type"]
+    assert_equal :text      , @hash["class"]
     assert_equal 3          , @hash[:size]
     assert_nil   @hash[:wrong_key]
     
@@ -55,15 +55,15 @@ class MethodizeTest < Test::Unit::TestCase
 
   def test_should_free_existant_methods_by_default
     assert_equal 3        , @hash.size
-    assert_equal :text    , @hash.type
+    assert_equal :text    , @hash.class
     assert_equal 123456789, @hash.id
   end
 
   def test_should_be_able_to_call_previously_freed_methods
     assert_equal 4, @hash.__size__
-    begin #avoid showing deprecate Object#type warning on test log
+    begin
       $stderr = StringIO.new
-      assert_equal Hash, @hash.__type__
+      assert_equal Hash, @hash.__class__
       $stderr.rewind
     ensure
       $stderr = STDERR
