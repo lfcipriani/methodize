@@ -1,9 +1,13 @@
 module Methodize
   def self.extended(base)
+    # ruby >1.9 returns an array of symbols for object.public_methods 
+    # while <1.9 returns an array of string. This methods guess it right
+    @@key_coerce = RUBY_VERSION.start_with?("1.9") ? lambda { |k| k.to_sym } : lambda { |k| k.to_s }
+    
     # if some of the Hash keys and public methods names conflict
     # we free the existant method to enable the user to call it
     base.keys.each do |k|
-      base.__free_method__(k.to_sym) if base.public_methods.include?(k.to_s)
+      base.__free_method__(k.to_sym) if base.public_methods.include?(@@key_coerce.call(k))
     end
   end
   
@@ -12,7 +16,7 @@ module Methodize
   end
 
   def []=(key, value)
-    __free_method__(key) if !self.keys.include?(key) && self.public_methods.include?(key.to_s)
+    __free_method__(key) if !self.keys.include?(key) && self.public_methods.include?(@@key_coerce.call(key))
     super(key,value)
   end
 
