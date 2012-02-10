@@ -6,8 +6,9 @@ module Methodize
     
     # if some of the Hash keys and public methods names conflict
     # we free the existant method to enable the user to call it
+    __metaclass__ = base.__metaclass__
     base.keys.each do |k|
-      base.__free_method__(k.to_sym) if base.public_methods.include?(@@key_coerce.call(k))
+      base.__free_method__(k.to_sym, __metaclass__) if base.public_methods.include?(@@key_coerce.call(k))
     end
   end
   
@@ -35,9 +36,8 @@ module Methodize
   # you can use this to free the method and use the method obj.size
   # to access the value of key "size".
   # you still can access the old method with __[method_name]__
-  def __free_method__(sym)
+  def __free_method__(sym, __metaclass__ = self.__metaclass__)
     __sym__ = "__#{sym}__"
-    __metaclass__ = self.__metaclass__
     __metaclass__.send(:alias_method, __sym__.to_sym, sym) unless self.respond_to?(__sym__)
     __metaclass__.send(:define_method, sym) { __fetch__key__(sym.to_s) }
     self
