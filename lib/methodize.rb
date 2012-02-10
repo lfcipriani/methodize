@@ -1,4 +1,21 @@
 module Methodize
+  def self.extend_object(base)
+    __normalize__(base)
+  end
+
+  def self.__normalize__(value)
+    case value
+    when Hash
+      value.extend(MethodizedHash) unless value.kind_of?(MethodizedHash)
+    when Array
+      value.extend(MethodizedArray) unless value.kind_of?(MethodizedArray)
+    end
+    value
+  end
+
+end
+
+module MethodizedHash
   def self.extended(base)
     # ruby >1.9 returns an array of symbols for object.public_methods 
     # while <1.9 returns an array of string. This methods guess it right
@@ -13,7 +30,7 @@ module Methodize
   end
   
   def [](key)
-    __normalize__(super(key))
+    ::Methodize.__normalize__(super(key))
   end
 
   def []=(key, value)
@@ -38,7 +55,7 @@ module Methodize
   # you still can access the old method with __[method_name]__
   def __free_method__(sym, __metaclass__ = self.__metaclass__)
     __sym__ = "__#{sym}__"
-    __metaclass__.send(:alias_method, __sym__.to_sym, sym) unless self.respond_to?(__sym__)
+    __metaclass__.send(:alias_method, __sym__.to_sym, sym) unless respond_to?(__sym__)
     __metaclass__.send(:define_method, sym) { __fetch__key__(sym.to_s) }
     self
   end
@@ -46,23 +63,22 @@ module Methodize
   def __metaclass__
     class << self; self; end
   end
-  
+
 private
 
   def __fetch__key__(key)
     self[key?(key) ? key : key.to_sym]
   end
+end
 
-  def __normalize__(value)
-    case value
-    when Hash
-      value.extend(Methodize)
-    when Array
-      value.each { |v| __normalize__(v) }
-      value
-    else
-      value
-    end
-    value
+module MethodizedArray
+  def [](*args)
+    ::Methodize.__normalize__(super(*args))
+  end
+  def first(*args)
+    ::Methodize.__normalize__(super(*args))
+  end
+  def last(*args)
+    ::Methodize.__normalize__(super(*args))
   end
 end
