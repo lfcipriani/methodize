@@ -27,8 +27,7 @@ module Methodize
       key = key?(method_name) ? method_name : method_name.to_sym
       self[key] = args[0]
     else
-      key = key?(method_name) ? method_name : method_name.to_sym
-      self[key]
+      __fetch__key__(method_name)
     end
   end
 
@@ -40,7 +39,7 @@ module Methodize
     __sym__ = "__#{sym}__"
     __metaclass__ = self.__metaclass__
     __metaclass__.send(:alias_method, __sym__.to_sym, sym) unless self.respond_to?(__sym__)
-    __metaclass__.send(:define_method, sym) { method_missing(sym.to_s) }
+    __metaclass__.send(:define_method, sym) { __fetch__key__(sym.to_s) }
     self
   end
 
@@ -49,6 +48,10 @@ module Methodize
   end
   
 private
+
+  def __fetch__key__(key)
+    self[key?(key) ? key : key.to_sym]
+  end
 
   def __normalize__(value)
     case value
