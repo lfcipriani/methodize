@@ -2,7 +2,6 @@ require 'test/unit'
 require 'methodize'
 
 require 'rubygems'
-require 'ruby-debug'
 
 class MethodizeTest < Test::Unit::TestCase
 
@@ -41,7 +40,7 @@ class MethodizeTest < Test::Unit::TestCase
     assert_equal :text      , @hash["class"]
     assert_equal 3          , @hash[:size]
     assert_nil   @hash[:wrong_key]
-    
+
     assert       @hash.keys.include?(:size)
     assert_equal 3, @hash.article.size
   end
@@ -70,7 +69,7 @@ class MethodizeTest < Test::Unit::TestCase
     end
     assert_not_equal 123456789, @hash.__id__
   end
-  
+
   def test_should_enable_write_operations
     @hash.article.last.title = "Article 3"
     @hash.article[1].info = {
@@ -84,7 +83,7 @@ class MethodizeTest < Test::Unit::TestCase
     @hash.shift  = 12
     @hash["inspect"] = false
     @hash.size   = 4
-    
+
     assert_equal "Article 3"  , @hash.article[2].title
     assert_equal "2010-08-31" , @hash.article[1].info.published
     assert_equal "Marty Mcfly", @hash.article.last.author

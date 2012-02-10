@@ -2,7 +2,6 @@ require 'test/unit'
 require 'methodize/hash'
 
 require 'rubygems'
-require 'ruby-debug'
 
 class MethodizeHashTest < Test::Unit::TestCase
 
@@ -41,7 +40,7 @@ class MethodizeHashTest < Test::Unit::TestCase
     assert_equal :text      , @hash["type"]
     assert_equal 3          , @hash[:size]
     assert_nil   @hash[:wrong_key]
-    
+
     assert       @hash.keys.include?(:size)
     assert_equal 3, @hash.article.size
   end
@@ -51,10 +50,10 @@ class MethodizeHashTest < Test::Unit::TestCase
     assert_equal "Foo Bar"  , @hash.article[1].author
     assert_equal :sports    , @hash.article.last.info.category.first
     assert_nil   @hash.wrong_key
-    
+
     assert_equal 3        , @hash.size
     assert_equal :text    , @hash.type
-    assert_equal 123456789, @hash.id  
+    assert_equal 123456789, @hash.id
   end
 
   def test_double_methodize_call_does_not_affect_anything
