@@ -55,7 +55,8 @@ private
     when Hash
       value.extend(Methodize)
     when Array
-      value.map { |v| __normalize__(v) }
+      value.each { |v| __normalize__(v) }
+      value
     else
       value
     end
