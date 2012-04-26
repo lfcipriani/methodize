@@ -61,4 +61,27 @@ class MethodizeHashTest < Test::Unit::TestCase
     assert_equal "Article 3", @hash.methodize!.article.last.title
   end
 
+  def test_iteration_of_array_using_method__each
+    map = []
+    @hash.article.each do |article|
+      map << article.kind_of?(MethodizedHash)
+    end
+    assert_equal [true, true, true], map
+  end
+
+  def test_iteration_of_array_using_method__each_with_index
+    map = []
+    @hash.article.each_with_index do |article, index|
+      map << [article.kind_of?(MethodizedHash), index]
+    end
+    assert_equal [[true, 0], [true, 1], [true, 2]], map
+  end
+
+  def test_iteration_of_array_using_method__map
+    map = @hash.article.map do |article|
+      article.kind_of?(MethodizedHash)
+    end
+    assert_equal [true, true, true], map
+  end
+
 end
