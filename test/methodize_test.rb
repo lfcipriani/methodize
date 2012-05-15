@@ -2,6 +2,7 @@ require 'test/unit'
 require 'methodize'
 
 require 'rubygems'
+require 'stringio'
 
 class MethodizeTest < Test::Unit::TestCase
 
@@ -61,7 +62,7 @@ class MethodizeTest < Test::Unit::TestCase
   def test_should_be_able_to_call_previously_freed_methods
     assert_equal 4, @hash.__size__
     begin
-      $stderr = StringIO.new
+      $stderr = ::StringIO.new
       assert_equal Hash, @hash.__class__
       $stderr.rewind
     ensure
