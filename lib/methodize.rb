@@ -81,4 +81,19 @@ module MethodizedArray
   def last(*args)
     ::Methodize.__normalize__(super(*args))
   end
+
+  def each(*args, &block)
+    unless defined?(@methodized)
+      @methodized = true
+      super(*args) do |*args2|
+        ::Methodize.__normalize__(args2.first) if args2.any?
+      end
+    end
+    super(*args, &block)
+  end
+
+  def map(*args, &block)
+    each(*args) unless defined?(@methodized)
+    super(*args, &block)
+  end
 end
