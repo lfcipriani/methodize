@@ -1,5 +1,6 @@
 Methodize
 ---------
+[![Build Status](https://travis-ci.org/lfcipriani/methodize.png)](http://travis-ci.org/lfcipriani/methodize)
 
 Is a module to read from and write to the keys of a ruby Hash using methods. As simple as this:
 

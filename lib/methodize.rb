@@ -19,7 +19,7 @@ module MethodizedHash
   def self.extended(base)
     # ruby >1.9 returns an array of symbols for object.public_methods 
     # while <1.9 returns an array of string. This methods guess it right
-    @@key_coerce = RUBY_VERSION.start_with?("1.9") ? lambda { |k| k.to_sym } : lambda { |k| k.to_s }
+    @@key_coerce = RUBY_VERSION.start_with?("1.9", "2.0") ? lambda { |k| k.to_sym } : lambda { |k| k.to_s }
     
     # if some of the Hash keys and public methods names conflict
     # we free the existant method to enable the user to call it
