@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "methodize"
-  s.version = "0.2.2"
+  s.version = "0.3.0"
   s.platform = Gem::Platform::RUBY
   s.summary = "Module to read from and write to the keys of a ruby Hash using methods"
   s.require_paths = ['lib']
@@ -8,4 +8,5 @@ Gem::Specification.new do |s|
   s.authors = ["Luis Cipriani","Marcelo Manzan"]
   s.email = "lfcipriani@gmail.com"
   s.homepage = "http://talleye.com"
+  s.add_development_dependency 'rake'
 end
