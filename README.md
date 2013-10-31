@@ -105,3 +105,7 @@ Check the tests for more examples.
 
 *Created by Luis Cipriani*<br/>
 *http://blog.talleye.com*
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/lfcipriani/methodize/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
