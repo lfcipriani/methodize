@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name      = 'methodize'
-  s.version   = '0.3.0'
+  s.version   = '0.3.1'
   s.platform  = Gem::Platform::RUBY
   s.authors   = ['Luis Cipriani', 'Marcelo Manzan', 'Luiz Rocha']
   s.email     = ['lfcipriani@gmail.com', 'manzan@gmail.com', 'lsdrocha@gmail.com']

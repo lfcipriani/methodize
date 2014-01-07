@@ -17,10 +17,10 @@ end
 
 module MethodizedHash
   def self.extended(base)
-    # ruby >1.9 returns an array of symbols for object.public_methods 
+    # ruby >1.9 returns an array of symbols for object.public_methods
     # while <1.9 returns an array of string. This methods guess it right
-    @@key_coerce = RUBY_VERSION.start_with?("1.9", "2.0") ? lambda { |k| k.to_sym } : lambda { |k| k.to_s }
-    
+    @@key_coerce = RUBY_VERSION.match(/^(1\.9[.\d]*|2[.\d]+)$/) ? lambda { |k| k.to_sym } : lambda { |k| k.to_s }
+
     # if some of the Hash keys and public methods names conflict
     # we free the existant method to enable the user to call it
     __metaclass__ = base.__metaclass__
@@ -28,7 +28,7 @@ module MethodizedHash
       base.__free_method__(k.to_sym, __metaclass__) if base.public_methods.include?(@@key_coerce.call(k))
     end
   end
-  
+
   def [](key)
     ::Methodize.__normalize__(super(key))
   end
